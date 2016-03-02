@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Lakewood Smokehouse</string>
+
+    <string name="eat">EAT</string>
+    <string name="drink">DRINK</string>
+    <string name="for_pickup">PICKUP</string>
+    <string name="add_review">add review</string>
+    <string name="read_review">read review</string>
+    <string name="thefood">The Food</string>
+    <string name="thebar">The Bar</string>
+    <string name="forpickup">For Pickup</string>
+    <string name="addreview">Add Review</string>
+    <string name="item">ITEM</string>
+    <string name="excellent">excellent</string>
+    <string name="readreview">Read Review</string>
+    <string name="communicate">Communicate</string>
+    <string name="itemstring">ITEM</string>
+    <string name="description">description</string>
+    <string name="price">price</string>
+    <string name="excellentstring">excellent</string>
+    <string name="excellentstrings2">excellent</string>
+    <string name="lakewood_smokehouse">Lakewood Smokehouse</string>
+    <string name="abv">abv</string>
+    <string name="itemstring2">item</string>
+    <string name="qty">qty:</string>
+    <string name="a_few_words_for_the_title">A Few Words for the Title</string>
+    <string name="comments">Comments</string>
+    <string name="plate">plate</string>
+    <string name="add">Add</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+    <string name="your_thoughts_please">your thoughts please</string>
+    <string name="ibu">IBU</string>
+    <string name="group">group</string>
+</resources>

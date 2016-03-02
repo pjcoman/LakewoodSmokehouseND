@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="comapps.com.lakewoodsmokehousend.MainActivity"
+  >
+
+
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentStart="false">>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_weight="1"
+                android:padding="10dp">
+
+            <Button
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/eatbutton"
+
+        android:gravity="center_vertical|center_horizontal"
+        android:text="@string/eat"
+        android:textColor="@android:color/white"
+        android:textSize="36sp"
+        android:alpha="50"
+        android:background="@drawable/button_rounded_corners"
+        android:layout_margin="4dp"
+        android:visibility="visible"
+                android:layout_weight="1" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/drinkbutton"
+        android:background="@drawable/button_rounded_corners_red"
+
+        android:gravity="center_vertical|center_horizontal"
+        android:textSize="36sp"
+        android:text="@string/drink"
+        android:textColor="@android:color/white"
+        android:alpha="50"
+        android:layout_margin="4dp"
+        android:visibility="visible"
+        android:layout_weight="1" />
+
+            </TableRow>
+
+            <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_weight="1"
+                android:padding="20dp">
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:id="@+id/togobutton"
+
+                                android:gravity="center_vertical|center_horizontal"
+                                android:text="@string/for_pickup"
+                                android:textColor="@android:color/white"
+                                android:textSize="36sp"
+                                android:background="@drawable/layout_rounded_corners_blacktored"
+                                android:layout_margin="4dp"
+                                android:visibility="visible"
+                                android:layout_weight="1" />
+                        </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_weight="1"
+                android:padding="20dp">
+
+
+            <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/add_review"
+            android:id="@+id/button_add"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button_rounded_corners"
+
+            android:capitalize="words"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:layout_margin="10dp"
+                android:layout_weight="1" />
+
+            <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/read_review"
+            android:id="@+id/button_read"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button_rounded_corners_red"
+
+            android:textAllCaps="false"
+            android:capitalize="words"
+            android:textSize="16sp"
+            android:layout_margin="10dp"
+                android:layout_weight="1" />
+
+            </TableRow>
+        </TableLayout>
+
+
+
+
+    <FrameLayout
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
+
+
+</RelativeLayout>

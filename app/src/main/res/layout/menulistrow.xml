@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:clickable="false"
+              android:orientation="vertical"
+              android:background="@drawable/layout_rounded_corners_redtoblack"
+    android:padding="20dp">
+
+
+
+    <TextView
+        android:id="@+id/itemTxt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="@string/itemstring"
+        android:textColor="@android:color/white"
+        android:textSize="26sp" />
+
+    <TextView
+        android:id="@+id/descriptionTxt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:gravity="center_vertical|center_horizontal"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:layout_margin="4dp"/>
+
+    <TextView
+        android:id="@+id/priceTxt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="@string/price"
+        android:textColor="@android:color/white"
+        android:textSize="26sp" />
+
+</LinearLayout>

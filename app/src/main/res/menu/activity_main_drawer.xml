@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu"
+            android:title="@string/thefood"
+            />
+        <item
+            android:id="@+id/drinks"
+            android:title="@string/thebar" />
+
+        <item
+            android:id="@+id/togo"
+            android:title="@string/forpickup" />
+        <item
+            android:id="@+id/addreview"
+            android:title="@string/addreview" />
+        <item
+            android:id="@+id/readreview"
+            android:title="@string/readreview" />
+    </group>
+
+    <item android:title="@string/communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_call"
+                android:title="Call" />
+            <item
+                android:id="@+id/nav_fb"
+                android:title="Facebook" />
+            <item
+                android:id="@+id/nav_ins"
+                android:title="Instagram" />
+            <item
+                android:id="@+id/nav_tw"
+                android:title="Twitter" />
+
+        </menu>
+    </item>
+
+</menu>
