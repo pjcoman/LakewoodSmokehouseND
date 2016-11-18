@@ -32,4 +32,10 @@
     <string name="your_thoughts_please">your thoughts please</string>
     <string name="ibu">IBU</string>
     <string name="group">group</string>
+    <string name="send_order">send order</string>
+    <string name="date">date</string>
+    <string name="time">time</string>
+    <string name="pick_date">pick date</string>
+    <string name="pick_time">pick time</string>
+    <string name="loading_empty">no data</string>
 </resources>

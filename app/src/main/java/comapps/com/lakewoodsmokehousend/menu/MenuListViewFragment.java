@@ -10,13 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
+import com.backendless.Backendless;
+import com.backendless.BackendlessCollection;
+import com.backendless.persistence.BackendlessDataQuery;
+import com.backendless.persistence.QueryOptions;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import comapps.com.lakewoodsmokehousend.LoadingCallback;
 import comapps.com.lakewoodsmokehousend.R;
 
 /**
@@ -25,7 +27,11 @@ import comapps.com.lakewoodsmokehousend.R;
 public class MenuListViewFragment extends ListFragment {
     private static final String TAG = "MENULISTVIEWFRAGMENT ";
     private static final String ARG_PAGE_NUMBER = "page_number";
-    private ArrayList<MenuObject> menu;
+
+    private BackendlessCollection<Menu> menu;
+    private List<Menu> menuComplete = new ArrayList<>();
+    private MenuListViewAdapter adapter;
+
 
     public MenuListViewFragment() {
 
@@ -56,74 +62,48 @@ public class MenuListViewFragment extends ListFragment {
 
         int groupId = getArguments().getInt(ARG_PAGE_NUMBER, 1);
 
-        List<ParseObject> ob;
 
-        try {
+        QueryOptions queryOptions = new QueryOptions();
+        queryOptions.addSortByOption("sort ASC");
+        queryOptions.setPageSize(100);
+        BackendlessDataQuery query = new BackendlessDataQuery();
+        query.setQueryOptions(queryOptions);
 
-            ParseQuery<ParseObject> query = new ParseQuery<>(
-                    "ls_menu").fromLocalDatastore();
-            // Locate the column named "name" in Parse.com and order list
-            // by ascending
+        String whereClause = "groupsort = " + String.valueOf(groupId);
+        Log.i(TAG, whereClause);
+        query.setWhereClause(whereClause);
 
+        Backendless.Data.of( Menu.class ).find(query, new LoadingCallback<BackendlessCollection<Menu>>
+                (getActivity(), "loading menu items...", true) {
 
-            query.orderByAscending("sort").whereEqualTo("groupsort", groupId);
-
-
-            ob = query.find();
-
-
-            menu = new ArrayList<>();
-
-            for (ParseObject parseObject : ob) {
-                // Locate images in flag column
-
-
-                MenuObject menuItem = new MenuObject();
-
-                String tempItem = (String) parseObject.get("item");
-                if (tempItem != null) {
-                    tempItem.trim();
-                }
-                menuItem.setItem(tempItem);
-
-                String tempPrice = (String) parseObject.get("price");
-                if (tempPrice != null) {
-                    tempPrice.trim();
-                }
-                menuItem.setPrice(tempPrice);
-
-                String tempGroup = (String) parseObject.get("group");
-                if (tempGroup != null) {
-                    tempGroup.trim();
-                }
-                menuItem.setGroup(tempGroup);
-
-                String tempDesc = (String) parseObject.get("description");
-                if (tempDesc != null) {
-                    tempDesc.trim();
-                }
-                menuItem.setDescription(tempDesc);
-
-                // menuItem.setPrice((String) menu.get("price"));
-                // menuItem.setGroup((String) menu.get("group"));
-                // menuItem.setDescription((String) menu.get("description"));
-                menu.add(menuItem);
+            @Override
+            public void handleResponse(BackendlessCollection<Menu> menuBackendlessCollection) {
+                menu = menuBackendlessCollection;
+                addMoreItems( menuBackendlessCollection );
+                super.handleResponse(menuBackendlessCollection);
             }
 
+        });
 
-        } catch (ParseException e) {
-            Log.e("Error", e.getMessage());
-            e.printStackTrace();
-        }
 
-        MenuListViewAdapter adapter = new MenuListViewAdapter(getActivity(), menu);
+
+        adapter = new MenuListViewAdapter(getActivity(), menuComplete);
+
+
 
         setListAdapter(adapter);
 
         adapter.notifyDataSetChanged();
 
+    }
+
+    private void addMoreItems( BackendlessCollection<Menu> nextPage) {
+        menuComplete.addAll(nextPage.getCurrentPage());
+        Log.i(TAG, "*** menuComplete List " + menuComplete.toString());
+        adapter.notifyDataSetChanged();
 
     }
+
 
 
     @Override

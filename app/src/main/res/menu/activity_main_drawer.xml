@@ -11,7 +11,7 @@
             android:title="@string/thebar" />
 
         <item
-            android:id="@+id/togo"
+            android:id="@+id/pickup"
             android:title="@string/forpickup" />
         <item
             android:id="@+id/addreview"

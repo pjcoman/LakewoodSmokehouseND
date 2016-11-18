@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import comapps.com.lakewoodsmokehousend.R;
 
@@ -21,10 +21,10 @@ class MenuListViewAdapter extends BaseAdapter {
 
 
     private final Context context;
-    private ArrayList<MenuObject> menu = new ArrayList<>();
+    private final List<Menu> menu;
 
 
-    public MenuListViewAdapter(Context context, ArrayList<MenuObject> menu) {
+    public MenuListViewAdapter(Context context, List<Menu> menu) {
 
         this.context = context;
         this.menu = menu;
@@ -69,13 +69,13 @@ class MenuListViewAdapter extends BaseAdapter {
         }
         // S
         //
-        MenuObject object = menu.get(position);
+        Menu menuItem = menu.get(position);
 
-        holder.item.setText(object.getItem());
-        holder.price.setText(object.getPrice());
+        holder.item.setText(menuItem.getItem());
+        holder.price.setText(menuItem.getPrice());
 
-        if (object.getDescription() != null) {
-            holder.description.setText(object.getDescription().trim());
+        if (menuItem.getDescription() != null) {
+            holder.description.setText(menuItem.getDescription().trim());
         }
 
         Typeface font = Typeface.createFromAsset(context.getAssets(), "fonts/MerriweatherSans-Italic.ttf");
@@ -85,7 +85,7 @@ class MenuListViewAdapter extends BaseAdapter {
 
 
 
-        String text = object.getGroup();
+        String text = menuItem.getGroup();
 
 
         switch (text) {

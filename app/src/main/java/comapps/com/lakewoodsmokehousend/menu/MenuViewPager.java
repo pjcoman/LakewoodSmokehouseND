@@ -1,7 +1,6 @@
 package comapps.com.lakewoodsmokehousend.menu;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -12,12 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
+import com.backendless.Backendless;
+import com.backendless.BackendlessCollection;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
+import com.backendless.persistence.BackendlessDataQuery;
+import com.backendless.persistence.QueryOptions;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import comapps.com.lakewoodsmokehousend.R;
 
@@ -28,29 +29,22 @@ import comapps.com.lakewoodsmokehousend.R;
 public class MenuViewPager extends Fragment {
 
     private static final String TAG = "MENUVIEWPAGER ";
-
-    public static TabLayout tabLayout;
     private static ArrayList<String> menuGroups = new ArrayList<>();
 
 
+    int numberOfFragments = 12;
 
-    MyAdapter adapter = null;
+
+
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_main_viewpager_menu, container, false);
-        //  tabLayout = (TabLayout) v.findViewById(R.id.tabs);
         ViewPager viewPager = (ViewPager) v.findViewById(R.id.viewpager);
         viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
 
 
-    /*    tabLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                tabLayout.setupWithViewPager(viewPager);
-            }
-        });
-*/
+
         return v;
 
 
@@ -63,7 +57,11 @@ public class MenuViewPager extends Fragment {
         public MyAdapter(FragmentManager fm) {
             super(fm);
 
+
             menuGroups = getMenuGroups();
+
+
+
 
         }
 
@@ -75,6 +73,7 @@ public class MenuViewPager extends Fragment {
             Log.d(TAG, "Sending activity is " + idOfSendingActivity);
 
 
+
             return MenuListViewFragment.newInstance(position + 1);
 
 
@@ -84,10 +83,7 @@ public class MenuViewPager extends Fragment {
         @Override
         public int getCount() {
 
-
-            return menuGroups.size();
-
-
+            return numberOfFragments;
         }
 
         @Override
@@ -103,40 +99,59 @@ public class MenuViewPager extends Fragment {
                 }
             }
 
+            if ( position == 0 ) {
+                return "STARTERS";
+            }
+
             return null;
         }
     }
 
+
+
     private static ArrayList<String> getMenuGroups() {
+
+
 
         menuGroups.clear();
 
+        BackendlessDataQuery query = new BackendlessDataQuery();
 
+        QueryOptions queryOptions = new QueryOptions();
+        queryOptions.addSortByOption("sort ASC");
+        queryOptions.setPageSize(20);
+        query.setQueryOptions(queryOptions);
 
-        List<ParseObject> ob;
+        Backendless.Persistence.of( MenuGroups.class).find(query, new AsyncCallback<BackendlessCollection<MenuGroups>>() {
+            @Override
+            public void handleResponse(BackendlessCollection<MenuGroups> foundGroups) {
+                // all Contact instances have been found
 
+                for (MenuGroups groups : foundGroups.getData()) {
 
-        try {
+                    if (groups.getType().contains("EATS")) {
 
-            ParseQuery<ParseObject> query = new ParseQuery<>(
-                    "ls_groups").fromLocalDatastore();
-            query.orderByAscending("sort").whereEqualTo("type", "EATS");
-            ob = query.find();
+                        menuGroups.add(groups.getGroup());
 
+                        Log.i(TAG, groups.getGroup());
 
-            for (ParseObject menu : ob) {
-                // Locate images in flag column
+                    }
+                }
 
-                menuGroups.add((String) menu.get("group"));
 
             }
 
-        } catch (ParseException e) {
-            Log.e("Error", e.getMessage());
-            e.printStackTrace();
-        }
-        return (menuGroups);
+            @Override
+            public void handleFault(BackendlessFault fault) {
+                // an error has occurred, the error code can be retrieved with fault.getCode()
+            }
+        });
+
+
+
+        return(menuGroups);
     }
+
 
 
 

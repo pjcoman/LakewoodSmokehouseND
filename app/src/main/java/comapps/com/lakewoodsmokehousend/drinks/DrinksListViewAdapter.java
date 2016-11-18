@@ -3,6 +3,7 @@ package comapps.com.lakewoodsmokehousend.drinks;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Objects;
+import java.util.List;
 
 import comapps.com.lakewoodsmokehousend.R;
 
@@ -21,25 +21,25 @@ class DrinksListViewAdapter extends BaseAdapter {
     public static final String TAG = "DRINKSLISTVIEWADAPTER";
 
     private final Context context;
-    private ArrayList<DrinkListObject> drinklist = new ArrayList<>();
+    private final List<Drinks> drinkList;
 
 
-    public DrinksListViewAdapter(Context context, ArrayList<DrinkListObject> drinklist) {
+    public DrinksListViewAdapter(Context context, List<Drinks> drinkList) {
 
         this.context = context;
-        this.drinklist = drinklist;
+        this.drinkList = drinkList;
 
     }
 
 
     @Override
     public int getCount() {
-        return drinklist.size();
+        return drinkList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return drinklist.get(position);
+        return drinkList.get(position);
     }
 
     @Override
@@ -85,50 +85,54 @@ class DrinksListViewAdapter extends BaseAdapter {
 
 
         // Set the results into TextViews
-        DrinkListObject object = drinklist.get(position);
+        Drinks object = drinkList.get(position);
 
         String tempName;
         String tempABV;
         String tempIBUString;
         String tempInfo;
         String tempPrice;
+        Double ABV;
 
 
-        tempName = object.getDrinkName();
+        tempName = object.getItem();
         if ( tempName == null ) {
             tempName = "";
         } else {
-            tempName = (object.getDrinkName());
+            tempName = (object.getItem());
         }
 
-        tempABV = object.getDrinkAbv().toString();
-    //    Log.i(TAG, "tempABV is " + tempABV);
+        ABV = object.getAbv();
 
-        if (Objects.equals(tempABV, "0.0")) {
+        if ( ABV == null ) {
             tempABV = "?";
+            Log.i(TAG, "tempABV is " + tempABV);
         } else {
-            tempABV = (object.getDrinkAbv().toString());
+            tempABV = ABV.toString();
+            Log.i(TAG, "else tempABV is " + tempABV);
         }
 
 
-        if ( object.getDrinkIBU() == null ) {
+
+
+        if ( object.getIBU() == null ) {
             tempIBUString = "N/A";
         } else {
-            tempIBUString = (object.getDrinkIBU().toString());
+            tempIBUString = (object.getIBU().toString());
         }
 
-        tempInfo = object.getDrinkInfo();
+        tempInfo = object.getInfo();
         if ( tempInfo == null ) {
             tempInfo = "";
         } else {
-            tempInfo = (object.getDrinkInfo());
+            tempInfo = (object.getInfo());
         }
 
-        tempPrice = object.getDrinkPrice();
+        tempPrice = object.getPrice();
         if ( tempPrice == null ) {
             tempPrice = "";
         } else {
-            tempPrice = (object.getDrinkPrice());
+            tempPrice = (object.getPrice());
         }
 
 
@@ -165,7 +169,7 @@ class DrinksListViewAdapter extends BaseAdapter {
             holder.drinkprice.setVisibility(View.VISIBLE);
         }
 
-        switch (object.getDrinkGroup()) {
+        switch (object.getGroup()) {
             case "COCKTAILS":
                 holder.abvlayout.setVisibility(View.GONE);
 

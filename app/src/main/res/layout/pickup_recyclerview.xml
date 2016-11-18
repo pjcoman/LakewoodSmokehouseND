@@ -7,25 +7,27 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/content_main2"
-    tools:context=".togo.ToGoRecyclerFragment"
+
+    tools:context=".for_pickup.PickupListViewFragment"
     android:orientation="vertical"
     android:gravity="center_vertical|center_horizontal"
-    >
+    android:layout_centerInParent="false">
 
 
 <FrameLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-   >
+    tools:ignore="UselessParent"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp">
 
 
     <android.support.v7.widget.RecyclerView
-        android:layout_height="fill_parent"
-        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
         android:id="@+id/recyclerview"
-        tools:listitem="@layout/togolist_recyclerview_row" />
+        tools:listitem="@layout/pickup_recyclerview_row" />
 
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/fab"
@@ -36,7 +38,8 @@
         android:background="@android:color/transparent"
         android:layout_marginBottom="60dp"
         android:layout_marginRight="20dp"
-        android:alpha=".75" />
+        android:alpha=".75"
+        tools:ignore="RtlHardcoded" />
 
 
 </FrameLayout>

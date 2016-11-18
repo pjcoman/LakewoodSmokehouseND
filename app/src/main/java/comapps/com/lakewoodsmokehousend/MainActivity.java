@@ -16,19 +16,21 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.backendless.Backendless;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import comapps.com.lakewoodsmokehousend.drinks.DrinksViewPager;
+import comapps.com.lakewoodsmokehousend.for_pickup.PickupListViewFragment;
 import comapps.com.lakewoodsmokehousend.menu.MenuViewPager;
 import comapps.com.lakewoodsmokehousend.reviews.AddReview;
 import comapps.com.lakewoodsmokehousend.reviews.ReviewListViewFragment;
-import comapps.com.lakewoodsmokehousend.togo.ToGoRecyclerFragment;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -45,6 +47,12 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private int mCurrentSelectedPosition;
 
+    PickupListViewFragment pickupListViewFragment;
+
+
+
+
+
     private int counter = 0;
 
 
@@ -55,12 +63,33 @@ public class MainActivity extends AppCompatActivity {
     private GoogleApiClient client;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        String appVersion = "v1";
+        Backendless.initApp(this, "D78A1585-9378-C5D7-FF12-BA4946E54E00", "2A1D54E4-A6D4-04AB-FF7B-113721FD2F00", appVersion);
 
         if (savedInstanceState != null){
             counter = savedInstanceState.getInt(COUNTER);
         }
+
+
+
+
+     /*   BackendlessUser user = new BackendlessUser();
+        user.setEmail( "pjcoman@gmail.com" );
+        user.setPassword( "Ma060789" );
+
+        Backendless.UserService.register( user, new BackendlessCallback<BackendlessUser>()
+        {
+            @Override
+            public void handleResponse( BackendlessUser backendlessUser )
+            {
+                Log.i( "Registration", backendlessUser.getEmail() + " successfully registered" );
+            }
+        } );
+*/
+
 
         Log.i(TAG, "counter from sis (top) " + String.valueOf(counter));
 
@@ -73,11 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
         final Button eat = (Button) findViewById(R.id.eatbutton);
         final Button drink = (Button) findViewById(R.id.drinkbutton);
-        final Button togo = (Button) findViewById(R.id.togobutton);
-        final Button addReview = (Button) findViewById(R.id.button_add);
-        final Button readReview = (Button) findViewById(R.id.button_read);
-
-
+        final Button pickup = (Button) findViewById(R.id.togobutton);
 
 
         if ( counter == 0 ) {
@@ -88,9 +113,9 @@ public class MainActivity extends AppCompatActivity {
 
             eat.setVisibility(View.VISIBLE);
             drink.setVisibility(View.VISIBLE);
-            togo.setVisibility(View.VISIBLE);
-            addReview.setVisibility(View.VISIBLE);
-            readReview.setVisibility(View.VISIBLE);
+            pickup.setVisibility(View.VISIBLE);
+           /* addReview.setVisibility(View.INVISIBLE);
+            readReview.setVisibility(View.INVISIBLE);*/
 
         } else {
 
@@ -100,9 +125,9 @@ public class MainActivity extends AppCompatActivity {
 
             eat.setVisibility(View.INVISIBLE);
             drink.setVisibility(View.INVISIBLE);
-            togo.setVisibility(View.INVISIBLE);
-            addReview.setVisibility(View.INVISIBLE);
-            readReview.setVisibility(View.INVISIBLE);
+            pickup.setVisibility(View.INVISIBLE);
+           /* addReview.setVisibility(View.INVISIBLE);
+            readReview.setVisibility(View.INVISIBLE);*/
 
 
 
@@ -133,7 +158,12 @@ public class MainActivity extends AppCompatActivity {
 
         mFragmentManager = getSupportFragmentManager();
 
+    //    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+    //    fragmentTransaction.replace(R.id.content_frame, new MenuViewPager()).commit();
+    //    mCurrentSelectedPosition = 0;
 
+
+        mDrawerLayout.openDrawer(Gravity.LEFT);
 
 
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -155,9 +185,8 @@ public class MainActivity extends AppCompatActivity {
 
                     buttonsInvisible(eat);
                     buttonsInvisible(drink);
-                    buttonsInvisible(togo);
-                    buttonsInvisible(addReview);
-                    buttonsInvisible(readReview);
+                    buttonsInvisible(pickup);
+
 
 
 
@@ -172,25 +201,29 @@ public class MainActivity extends AppCompatActivity {
 
                     buttonsInvisible(eat);
                     buttonsInvisible(drink);
-                    buttonsInvisible(togo);
-                    buttonsInvisible(addReview);
-                    buttonsInvisible(readReview);
+                    buttonsInvisible(pickup);
+
 
 
                 }
 
-                else if (menuItem.getItemId() == R.id.togo) {
+                else if (menuItem.getItemId() == R.id.pickup) {
                     FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.content_frame, new ToGoRecyclerFragment()).commit();
+
+                        fragmentTransaction.replace(R.id.content_frame, new PickupListViewFragment(), "PICK_UP_FRAGMENT");
+                        fragmentTransaction.addToBackStack("pickup_frag");
+                        fragmentTransaction.commit();
+
+
+
                     mCurrentSelectedPosition = 2;
 
                     counter++;
 
                     buttonsInvisible(eat);
                     buttonsInvisible(drink);
-                    buttonsInvisible(togo);
-                    buttonsInvisible(addReview);
-                    buttonsInvisible(readReview);
+                    buttonsInvisible(pickup);
+
 
 
 
@@ -206,9 +239,8 @@ public class MainActivity extends AppCompatActivity {
 
                     buttonsInvisible(eat);
                     buttonsInvisible(drink);
-                    buttonsInvisible(togo);
-                    buttonsInvisible(addReview);
-                    buttonsInvisible(readReview);
+                    buttonsInvisible(pickup);
+
 
 
 
@@ -224,9 +256,7 @@ public class MainActivity extends AppCompatActivity {
 
                     buttonsInvisible(eat);
                     buttonsInvisible(drink);
-                    buttonsInvisible(togo);
-                    buttonsInvisible(addReview);
-                    buttonsInvisible(readReview);
+                    buttonsInvisible(pickup);
 
 
 
@@ -325,8 +355,9 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-        mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout, toolbar,R.string.app_name,
+     //   android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+
+        mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.app_name,
                 R.string.app_name);
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
@@ -342,9 +373,8 @@ public class MainActivity extends AppCompatActivity {
 
                 buttonsInvisible(eat);
                 buttonsInvisible(drink);
-                buttonsInvisible(togo);
-                buttonsInvisible(addReview);
-                buttonsInvisible(readReview);
+                buttonsInvisible(pickup);
+
 
                 counter++;
               //  Log.i("but counter is ", String.valueOf(counter));
@@ -362,9 +392,8 @@ public class MainActivity extends AppCompatActivity {
 
                 buttonsInvisible(eat);
                 buttonsInvisible(drink);
-                buttonsInvisible(togo);
-                buttonsInvisible(addReview);
-                buttonsInvisible(readReview);
+                buttonsInvisible(pickup);
+
 
                 counter++;
           //      Log.i(" but2 counter is ", String.valueOf(counter));
@@ -372,18 +401,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        togo.setOnClickListener(new View.OnClickListener() {
+        pickup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.content_frame, new ToGoRecyclerFragment()).commit();
+                fragmentTransaction.replace(R.id.content_frame, new PickupListViewFragment()).commit();
                 mCurrentSelectedPosition = 2;
 
                 buttonsInvisible(eat);
                 buttonsInvisible(drink);
-                buttonsInvisible(togo);
-                buttonsInvisible(addReview);
-                buttonsInvisible(readReview);
+                buttonsInvisible(pickup);
+
 
                 counter++;
             //    Log.i("but3 counter is ", String.valueOf(counter));
@@ -391,47 +419,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        readReview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.content_frame, new ReviewListViewFragment()).commit();
-                mCurrentSelectedPosition = 3;
-
-                buttonsInvisible(eat);
-                buttonsInvisible(drink);
-                buttonsInvisible(togo);
-                buttonsInvisible(addReview);
-                buttonsInvisible(readReview);
-
-                counter++;
-           //     Log.i("but3 counter is ", String.valueOf(counter));
-
-            }
-        });
-
-        addReview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.content_frame, new AddReview()).commit();
-                mCurrentSelectedPosition = 4;
-
-                buttonsInvisible(eat);
-                buttonsInvisible(drink);
-                buttonsInvisible(togo);
-                buttonsInvisible(addReview);
-                buttonsInvisible(readReview);
-
-                counter++;
-           //     Log.i("but3 counter is ", String.valueOf(counter));
-
-            }
-        });
-
 
 
     }
+
+
+
 
     private void buttonsInvisible(View button) {
         button.setVisibility(View.INVISIBLE);
@@ -445,7 +438,7 @@ public class MainActivity extends AppCompatActivity {
         outState.putInt(STATE_SELECTED_POSITION, mCurrentSelectedPosition);
         outState.putInt(COUNTER, counter);
 
-    //    Log.i("sis counter is ", String.valueOf(counter));
+        Log.i("sis counter is ", String.valueOf(counter));
 
     }
 
@@ -453,7 +446,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
 
-    //    Log.i("onResume counter is ", String.valueOf(counter));
+        Log.i("onResume counter is ", String.valueOf(counter));
 
 
 
@@ -469,7 +462,7 @@ public class MainActivity extends AppCompatActivity {
         mNavigationView.getMenu().getItem(mCurrentSelectedPosition).setChecked(true);
         counter = savedInstanceState.getInt(COUNTER);
 
-      //  Log.i("ris counter is ", String.valueOf(counter));
+        Log.i("ris counter is ", String.valueOf(counter));
     }
 
 
@@ -559,5 +552,6 @@ public class MainActivity extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
 
     }
+
 
 }

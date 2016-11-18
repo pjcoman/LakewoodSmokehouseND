@@ -13,6 +13,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,10 +23,14 @@ public class ParseApplication extends Application {
 
     private static final String TAG = "ParseApplication";
 
+    private static ArrayList<String> menuGroups = new ArrayList<>();
+
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+
 
         Parse.enableLocalDatastore(getApplicationContext());
 
@@ -98,22 +103,8 @@ public class ParseApplication extends Application {
             }
         });
 
-        ParseQuery<ParseObject> queryGroups = new ParseQuery<>(
-                "ls_groups");
-        // Locate the column named "day" in Parse.com and order list
-        // by ascending
 
-        queryGroups.findInBackground(new FindCallback<ParseObject>() {
-            public void done(final List<ParseObject> object, ParseException e) {
-                // Remove the previously cached results.
-                ParseObject.unpinAllInBackground("ls_groups", new DeleteCallback() {
-                    public void done(ParseException e) {
-                        // Cache the new results.
-                        ParseObject.pinAllInBackground("ls_groups", object);
-                    }
-                });
-            }
-        });
+
 
 
 

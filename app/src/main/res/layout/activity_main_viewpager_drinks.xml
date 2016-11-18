@@ -26,7 +26,8 @@
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
             android:background="#bc0b0b0b"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            android:id="@+id/pagerTabStrip" />
 
 
     </android.support.v4.view.ViewPager>

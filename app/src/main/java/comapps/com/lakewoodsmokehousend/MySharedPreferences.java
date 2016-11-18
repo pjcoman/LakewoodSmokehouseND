@@ -17,6 +17,7 @@ public class MySharedPreferences {
     private static final String PREF_NAME = "pref";
     private static final String ORDER_ITEMS = "orderitems";
 
+
     public MySharedPreferences(Context context) {
         int PRIVATE_MODE = 0;
         pref = context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
@@ -30,13 +31,18 @@ public class MySharedPreferences {
         Map<String,?> keys = pref.getAll();
 
         for(Map.Entry<String,?> entry : keys.entrySet()){
-            Log.d("order SP ",entry.getKey() + ": " +
-                    entry.getValue().toString());
+            Log.d("order SP ",entry.getKey() + ": " + entry.getValue().toString());
         }
     }
 
-    public String getOrderItemsList() {
+
+
+
+    public String getOrderItemsList()
+    {
+
         return pref.getString(ORDER_ITEMS, "");
     }
+
 
 }

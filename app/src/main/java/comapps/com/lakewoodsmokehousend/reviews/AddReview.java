@@ -5,6 +5,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.parse.ParseObject;
+import com.backendless.Backendless;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
 
 import comapps.com.lakewoodsmokehousend.R;
 
@@ -21,6 +24,9 @@ import comapps.com.lakewoodsmokehousend.R;
  * Created by me on 11/7/2015.
  */
 public class AddReview extends Fragment {
+
+    private static final String TAG = "ADDREVIEW";
+
     private TextView reviewName;
     private RatingBar ratingBar;
     private TextView reviewText;
@@ -47,17 +53,34 @@ public class AddReview extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
 
                 try {// TODO Auto-generated method stub
 
-                    ParseObject review = new ParseObject("ls_reviews");
-                    review.put("reviewname", reviewName.getText().toString());
-                    review.put("rating", String.valueOf(ratingBar.getRating()));
-                    review.put("review", reviewText.getText().toString());
-                    review.saveInBackground();
+                    Review review = new Review();
+                    review.setReviewname(reviewName.getText().toString());
+                    review.setRating(String.valueOf(ratingBar.getRating()));
+                    review.setReview(reviewText.getText().toString());
 
-                    Toast.makeText(v.getContext(), "New review added", Toast.LENGTH_LONG).show();
+                    Backendless.Persistence.save(review, new AsyncCallback<Review>() {
+                        @Override
+                        public void handleResponse(Review response) {
+
+                            Log.i(TAG, "review has been saved");
+
+                            Toast.makeText(v.getContext(), "New review added", Toast.LENGTH_LONG).show();
+
+                        }
+
+                        @Override
+                        public void handleFault(BackendlessFault fault) {
+
+                            Log.i(TAG, "review has failed");
+
+                        }
+                    });
+
+
                 } catch (Exception ignored) {
 
                 }

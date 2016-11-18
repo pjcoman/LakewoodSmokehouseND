@@ -5,18 +5,21 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.ListView;
 
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
+import com.backendless.Backendless;
+import com.backendless.BackendlessCollection;
+import com.backendless.persistence.BackendlessDataQuery;
+import com.backendless.persistence.QueryOptions;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import comapps.com.lakewoodsmokehousend.LoadingCallback;
 import comapps.com.lakewoodsmokehousend.R;
 
 
@@ -25,19 +28,39 @@ import comapps.com.lakewoodsmokehousend.R;
  */
 public class ReviewListViewFragment extends ListFragment {
 
+    private BackendlessCollection<Review> reviews;
+    private List<Review> totalReviews = new ArrayList<>();
+    private boolean isLoadingItems = false;
+    private ReviewListViewAdapter adapter;
 
-    private List<ReviewListObject> reviewObject;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        View rootView = inflater.inflate(R.layout.reviewlistfragment, container, false);
+        ListView list = (ListView) rootView.findViewById(android.R.id.list);
 
-        return inflater.inflate(R.layout.reviewlistfragment, container, false);
+        list.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
+
+        return rootView;
     }
 
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+
+/*
 
 
         List<ParseObject> ob;
@@ -56,7 +79,7 @@ public class ReviewListViewFragment extends ListFragment {
 
 
 
-            reviewObject = new ArrayList<>();
+            totalReviews = new ArrayList<>();
 
             for (ParseObject reviews : ob) {
                 // Locate images in flag column
@@ -72,20 +95,50 @@ public class ReviewListViewFragment extends ListFragment {
 
                 int firstDigitOfRating = Integer.valueOf(rating.substring(0,1));
 
-                if ( firstDigitOfRating > 2 ) { reviewObject.add(review);}
+                if ( firstDigitOfRating > 2 ) { totalReviews.add(review);
+                }
             }
 
 
         } catch (ParseException e) {
             Log.e("Error", e.getMessage());
             e.printStackTrace();
-        }
+        }*/
 
-        ReviewListViewAdapter adapter = new ReviewListViewAdapter(getActivity(), reviewObject);
+        adapter = new ReviewListViewAdapter(getActivity(), totalReviews);
         setListAdapter(adapter);
 
+        QueryOptions queryOptions = new QueryOptions();
+        queryOptions.setPageSize(100);
+        BackendlessDataQuery query = new BackendlessDataQuery();
+        query.setQueryOptions(queryOptions);
+        String whereClause = "rating LIKE '3.0' OR rating LIKE '3.5' OR rating LIKE '4.0' OR rating LIKE '4.5' OR rating LIKE '5.0'";
+        query.setWhereClause( whereClause );
+
+        Backendless.Data.of( Review.class ).find( query, new LoadingCallback<BackendlessCollection<Review>>
+                ( getActivity(), "Loading reviews...", true) {
+
+            @Override
+        public void handleResponse(BackendlessCollection<Review> reviewsBackendlessCollection ) {
+                reviews = reviewsBackendlessCollection;
+                addMoreItems( reviewsBackendlessCollection);
+                super.handleResponse( reviewsBackendlessCollection);
+            }
+
+        } );
+
+        adapter.notifyDataSetChanged();
 
     }
+
+    private void addMoreItems( BackendlessCollection<Review> nextPage) {
+        totalReviews.addAll( nextPage.getCurrentPage());
+        adapter.notifyDataSetChanged();
+
+    }
+
+
+
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {

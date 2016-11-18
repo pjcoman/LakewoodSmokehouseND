@@ -1,4 +1,4 @@
-package comapps.com.lakewoodsmokehousend.togo;
+package comapps.com.lakewoodsmokehousend.for_pickup;
 
 import android.content.Context;
 import android.support.design.widget.Snackbar;
@@ -14,21 +14,18 @@ import android.widget.TextView;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import comapps.com.lakewoodsmokehousend.ColoredSnackbar;
 import comapps.com.lakewoodsmokehousend.R;
-import comapps.com.lakewoodsmokehousend.menu.MenuObject;
+import comapps.com.lakewoodsmokehousend.menu.Menu;
 
 
-/**
- * Created by me on 1/27/2016.
- */
-public class ToGoRecyclerAdapter extends RecyclerView.Adapter<ToGoRecyclerAdapter.ViewHolder> {
+public class PickupListViewAdapter extends RecyclerView.Adapter<PickupListViewAdapter.ViewHolder> {
 
     private static final String EMPTY_STRING = "";
-    private static final String TAG = "TOGORECYCLERADAPTER";
-    private final ArrayList<MenuObject> menu;
+    private static final String TAG = "PICKUPLISTVIEWADAPTER";
+    private final List<Menu> menu;
 
 
 
@@ -45,7 +42,7 @@ public class ToGoRecyclerAdapter extends RecyclerView.Adapter<ToGoRecyclerAdapte
 
 
 
-    public ToGoRecyclerAdapter(ArrayList<MenuObject> menu, Context context) {
+    public PickupListViewAdapter(List<Menu> menu, Context context) {
 
 
         this.menu = menu;
@@ -58,7 +55,7 @@ public class ToGoRecyclerAdapter extends RecyclerView.Adapter<ToGoRecyclerAdapte
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //Inflate the layout, initialize the View Holder
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.togolist_recyclerview_row, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.pickup_recyclerview_row, parent, false);
 
 
         return new ViewHolder(v);
@@ -71,7 +68,7 @@ public class ToGoRecyclerAdapter extends RecyclerView.Adapter<ToGoRecyclerAdapte
 
 
 
-        final MenuObject orderMenuObject = menu.get(position);
+        final Menu orderMenuObject = menu.get(position);
         holder.bind(orderMenuObject);
 
 
@@ -87,7 +84,7 @@ public class ToGoRecyclerAdapter extends RecyclerView.Adapter<ToGoRecyclerAdapte
                 holder.buttondelete.setVisibility(View.GONE);
                 holder.group.setVisibility(View.VISIBLE);
                 holder.ll.setBackgroundResource(R.drawable.layout_rounded_corners_brown);
-            //    Log.i(TAG, "The groups is " + orderMenuObject.getGroup());
+                //    Log.i(TAG, "The groups is " + orderMenuObject.getGroup());
                 break;
             case "SALADS":
                 holder.ll1.setVisibility(View.VISIBLE);
@@ -100,7 +97,7 @@ public class ToGoRecyclerAdapter extends RecyclerView.Adapter<ToGoRecyclerAdapte
                 holder.buttondelete.setVisibility(View.GONE);
                 holder.group.setVisibility(View.GONE);
                 holder.ll.setBackgroundResource(R.drawable.layout_rounded_corners_green);
-            //    Log.i(TAG, "The groups is " + orderMenuObject.getGroup());
+                //    Log.i(TAG, "The groups is " + orderMenuObject.getGroup());
                 break;
             case "TEXAS-SIZED SANDWICHES":
                 holder.ll1.setVisibility(View.VISIBLE);
@@ -112,7 +109,7 @@ public class ToGoRecyclerAdapter extends RecyclerView.Adapter<ToGoRecyclerAdapte
                 holder.group.setVisibility(View.VISIBLE);
                 holder.group.setText("SANDWICHES");
                 holder.ll.setBackgroundResource(R.drawable.layout_rounded_corners_texasflag);
-             //   Log.i(TAG, "The groups is " + orderMenuObject.getGroup());
+                //   Log.i(TAG, "The groups is " + orderMenuObject.getGroup());
                 break;
             case "SMOKED WINGS":
                 holder.ll1.setVisibility(View.VISIBLE);
@@ -125,7 +122,7 @@ public class ToGoRecyclerAdapter extends RecyclerView.Adapter<ToGoRecyclerAdapte
                 holder.buttondelete.setVisibility(View.GONE);
                 holder.group.setVisibility(View.GONE);
                 holder.ll.setBackgroundResource(R.drawable.layout_rounded_corners_wings);
-             //   Log.i(TAG, "The groups is " + orderMenuObject.getGroup());
+                //   Log.i(TAG, "The groups is " + orderMenuObject.getGroup());
                 break;
             case "HANDCRAFTED PIZZAS":
                 holder.ll1.setVisibility(View.VISIBLE);
@@ -139,7 +136,7 @@ public class ToGoRecyclerAdapter extends RecyclerView.Adapter<ToGoRecyclerAdapte
                 holder.group.setVisibility(View.VISIBLE);
                 holder.group.setText("PIZZA");
                 holder.ll.setBackgroundResource(R.drawable.layout_rounded_corners_darkred);
-             //   Log.i(TAG, "The groups is " + orderMenuObject.getGroup());
+                //   Log.i(TAG, "The groups is " + orderMenuObject.getGroup());
                 break;
 
             case "MEAT":
@@ -158,7 +155,7 @@ public class ToGoRecyclerAdapter extends RecyclerView.Adapter<ToGoRecyclerAdapte
                 holder.spinner5.setVisibility(View.GONE);
                 holder.spinner6.setVisibility(View.GONE);
                 holder.group.setVisibility(View.GONE);
-             //   Log.i(TAG, "The groups is " + orderMenuObject.getGroup());
+                //   Log.i(TAG, "The groups is " + orderMenuObject.getGroup());
                 break;
             case "BY THE POUND":
                 holder.ll1.setVisibility(View.VISIBLE);
@@ -171,7 +168,7 @@ public class ToGoRecyclerAdapter extends RecyclerView.Adapter<ToGoRecyclerAdapte
                 holder.buttondelete.setVisibility(View.GONE);
                 holder.group.setVisibility(View.VISIBLE);
                 holder.ll.setBackgroundResource(R.drawable.layout_rounded_corners_red);
-             //   Log.i(TAG, "The groups is " + orderMenuObject.getGroup());
+                //   Log.i(TAG, "The groups is " + orderMenuObject.getGroup());
                 break;
             case "SPECIALTIES":
                 holder.ll1.setVisibility(View.VISIBLE);
@@ -184,7 +181,7 @@ public class ToGoRecyclerAdapter extends RecyclerView.Adapter<ToGoRecyclerAdapte
                 holder.buttondelete.setVisibility(View.GONE);
                 holder.group.setVisibility(View.VISIBLE);
                 holder.ll.setBackgroundResource(R.drawable.layout_rounded_corners_yellow);
-             //   Log.i(TAG, "The groups is " + orderMenuObject.getGroup());
+                //   Log.i(TAG, "The groups is " + orderMenuObject.getGroup());
                 break;
             case "KIDS":
                 holder.ll1.setVisibility(View.VISIBLE);
@@ -196,7 +193,7 @@ public class ToGoRecyclerAdapter extends RecyclerView.Adapter<ToGoRecyclerAdapte
                 holder.buttondelete.setVisibility(View.GONE);
                 holder.group.setVisibility(View.VISIBLE);
                 holder.ll.setBackgroundResource(R.drawable.layout_rounded_corners_blue);
-             //   Log.i(TAG, "The groups is " + orderMenuObject.getGroup());
+                //   Log.i(TAG, "The groups is " + orderMenuObject.getGroup());
                 break;
             case "SIDES":
                 holder.ll1.setVisibility(View.VISIBLE);
@@ -209,7 +206,7 @@ public class ToGoRecyclerAdapter extends RecyclerView.Adapter<ToGoRecyclerAdapte
                 holder.buttondelete.setVisibility(View.GONE);
                 holder.group.setVisibility(View.VISIBLE);
                 holder.ll.setBackgroundResource(R.drawable.layout_rounded_corners_brown);
-             //   Log.i(TAG, "The groups is " + orderMenuObject.getGroup());
+                //   Log.i(TAG, "The groups is " + orderMenuObject.getGroup());
                 break;
             case "FAMILY STYLE":
                 holder.ll1.setVisibility(View.VISIBLE);
@@ -231,7 +228,7 @@ public class ToGoRecyclerAdapter extends RecyclerView.Adapter<ToGoRecyclerAdapte
                 holder.buttondelete.setVisibility(View.GONE);
                 holder.group.setVisibility(View.GONE);
                 holder.ll.setBackgroundResource(R.drawable.layout_rounded_corners_red);
-             //   Log.i(TAG, "The groups is " + orderMenuObject.getGroup());
+                //   Log.i(TAG, "The groups is " + orderMenuObject.getGroup());
                 break;
 
 
@@ -247,10 +244,10 @@ public class ToGoRecyclerAdapter extends RecyclerView.Adapter<ToGoRecyclerAdapte
                 holder.group.setVisibility(View.GONE);
                 holder.ll.setBackgroundResource(R.drawable.layout_rounded_corners_offwhite);
 
-             //   Log.i(TAG, "The group default is " + orderMenuObject.getGroup());
+                //   Log.i(TAG, "The group default is " + orderMenuObject.getGroup());
         }
 
-      
+
 
         // ********************************************************************************************************
 
@@ -260,7 +257,7 @@ public class ToGoRecyclerAdapter extends RecyclerView.Adapter<ToGoRecyclerAdapte
             @Override
             public void onClick(View v) {
 
-                MenuObject orderMenuObject = new MenuObject();
+                Menu orderMenuObject = new Menu();
                 orderMenuObject.setItem("PLATES");
                 orderMenuObject.setGroup("MEAT");
                 orderMenuObject.setPrice("$13, $16, $18");
@@ -311,48 +308,48 @@ public class ToGoRecyclerAdapter extends RecyclerView.Adapter<ToGoRecyclerAdapte
                 orderMenuObject.setSelection(holder.spinner1.getSelectedIndex());
 
 
-                    if (orderMenuObject.getGroup().equals("MEAT")) {
+                if (orderMenuObject.getGroup().equals("MEAT")) {
 
+                    orderMenuObject.setQuantity(1);
+
+                    String m1 = orderMenuObject.getSelection().toString() + orderMenuObject.getSelection2().toString()
+                            + orderMenuObject.getSelection3().toString();
+                    String findString = "0";
+                    String meatItem = String.valueOf(3 - (m1.split(findString, -1).length - 1)) + " MEAT PLATE ";
+
+                    m1 = replacePositionsWithString(m1);
+
+                    orderMenuObject.setOrder(meatItem + m1);
+                    String snackBarText = ((orderMenuObject.getItem() + " " + m1 + " added"));
+
+                    Snackbar snackbar = Snackbar.make(view, snackBarText, Snackbar.LENGTH_SHORT);
+                    ColoredSnackbar.meat(snackbar).show();
+
+                } else {
+
+                    if ( orderMenuObject.getQuantity() == 0 ) {
                         orderMenuObject.setQuantity(1);
-
-                        String m1 = orderMenuObject.getSelection().toString() + orderMenuObject.getSelection2().toString()
-                                + orderMenuObject.getSelection3().toString();
-                        String findString = "0";
-                        String meatItem = String.valueOf(3 - (m1.split(findString, -1).length - 1)) + " MEAT PLATE ";
-
-                        m1 = replacePositionsWithString(m1);
-
-                        orderMenuObject.setOrder(meatItem + m1);
-                        String snackBarText = ((orderMenuObject.getItem() + " " + m1 + " added"));
-
-                        Snackbar snackbar = Snackbar.make(view, snackBarText, Snackbar.LENGTH_SHORT);
-                        ColoredSnackbar.meat(snackbar).show();
-
-                    } else {
-
-                        if ( orderMenuObject.getQuantity() == 0 ) {
-                            orderMenuObject.setQuantity(1);
-                        }
-
-                        String m1 = orderMenuObject.getSelection().toString() + orderMenuObject.getSelection2().toString()
-                                + orderMenuObject.getSelection3().toString();
-
-                        String s1 = orderMenuObject.getSelection4().toString() + orderMenuObject.getSelection5().toString()
-                                + orderMenuObject.getSelection6().toString();
-
-
-                        m1 = replacePositionsWithString(m1);
-                        s1 = replacePositionsWithStringSides(s1);
-
-                        orderMenuObject.setOrder(orderMenuObject.getItem() + m1 + " " + s1 + " qty:" + orderMenuObject.getQuantity().toString());
-
-                        String snackBarText = ((orderMenuObject.getItem() + " " + m1 + " " + s1 + " added"));
-
-                        Snackbar snackbar = Snackbar.make(view, snackBarText, Snackbar.LENGTH_SHORT);
-                        ColoredSnackbar.meat(snackbar).show();
-
-
                     }
+
+                    String m1 = orderMenuObject.getSelection().toString() + orderMenuObject.getSelection2().toString()
+                            + orderMenuObject.getSelection3().toString();
+
+                    String s1 = orderMenuObject.getSelection4().toString() + orderMenuObject.getSelection5().toString()
+                            + orderMenuObject.getSelection6().toString();
+
+
+                    m1 = replacePositionsWithString(m1);
+                    s1 = replacePositionsWithStringSides(s1);
+
+                    orderMenuObject.setOrder(orderMenuObject.getItem() + m1 + " " + s1 + " qty:" + orderMenuObject.getQuantity().toString());
+
+                    String snackBarText = ((orderMenuObject.getItem() + " " + m1 + " " + s1 + " added"));
+
+                    Snackbar snackbar = Snackbar.make(view, snackBarText, Snackbar.LENGTH_SHORT);
+                    ColoredSnackbar.meat(snackbar).show();
+
+
+                }
 
 
                 notifyDataSetChanged();
@@ -631,7 +628,7 @@ public class ToGoRecyclerAdapter extends RecyclerView.Adapter<ToGoRecyclerAdapte
 
                 holder.quantity.setText(quantity.toString());
                 Snackbar snackbar = Snackbar.make(v, orderMenuObject.getItem() + " added", Snackbar.LENGTH_SHORT);
-           //     Snackbar.make(v, orderMenuObject.getItem() + " added", Snackbar.LENGTH_LONG).show();
+                //     Snackbar.make(v, orderMenuObject.getItem() + " added", Snackbar.LENGTH_LONG).show();
                 ColoredSnackbar.meat(snackbar).show();
                 notifyDataSetChanged();
 
@@ -772,95 +769,96 @@ public class ToGoRecyclerAdapter extends RecyclerView.Adapter<ToGoRecyclerAdapte
         }
 
 
-            if (orderMenuObject.getQuantity() < 1) {
-                holder.buttonminus.setEnabled(false);
-            } else {
-                holder.buttonminus.setEnabled(true);
-            }
+        if (orderMenuObject.getQuantity() < 1) {
+            holder.buttonminus.setEnabled(false);
+        } else {
+            holder.buttonminus.setEnabled(true);
+        }
 
 
-            orderComplete = new StringBuilder();
+        orderComplete = new StringBuilder();
         //    orderComplete.append(" -> ");
 
-            int total = 0;
+        int total = 0;
 
-            for (int i = 0; i < menu.size(); i++) {
-                if (menu.get(i).getQuantity() > 0) {
-
-
-                        String orderItem = menu.get(i).getOrder().trim();
+        for (int i = 0; i < menu.size(); i++) {
+            if (menu.get(i).getQuantity() > 0) {
 
 
-                    Log.i(TAG, "Order item " + orderItem);
-
-                    String pFinal;
-                    String p = menu.get(i).getPrice();
-                    String pFirstChar = String.valueOf((menu.get(i).getOrder()).charAt(0));
-
-                   // Log.i(TAG, "op 1st character is " + pFirstChar);
-
-                  //  Log.i(TAG, p);
-
-                  //  Log.i(TAG, menu.get(i).getGroup());
-
-                    p = p.replace("$", "");
-                  //  Log.i(TAG, p);
-                    p = p.replace("GF", "").trim();
-                  //  Log.i(TAG, p);
-                    p = p.replace(", ", "");
-                  //  Log.i(TAG, p);
-                    p = p.replace("per person", "").trim();
-                  //  Log.i(TAG, p);
-                  //  Log.i(TAG, pFirstChar);
+                String orderItem = menu.get(i).getOrder().trim();
 
 
+                Log.i(TAG, "Order item " + orderItem);
 
+                String pFinal;
+                String p = menu.get(i).getPrice();
+                String pFirstChar = String.valueOf((menu.get(i).getOrder()).charAt(0));
 
-                    switch (pFirstChar) {
-                        case "1":
-                            pFinal = p.substring(0, 2).trim();
-                            break;
-                        case "2":
-                            pFinal = p.substring(2, 4).trim();
-                            break;
-                        case "3":
-                            pFinal = p.substring(4, 6).trim();
-                            break;
-                        default:
-                            pFinal = p.trim();
+                // Log.i(TAG, "op 1st character is " + pFirstChar);
+
+                //  Log.i(TAG, p);
+
+                //  Log.i(TAG, menu.get(i).getGroup());
+
+                p = p.replace("$", "");
+                //  Log.i(TAG, p);
+                p = p.replace("GF", "").trim();
+                //  Log.i(TAG, p);
+                p = p.replace(", ", "");
+                //  Log.i(TAG, p);
+                p = p.replace("per person", "").trim();
+                //  Log.i(TAG, p);
+                //  Log.i(TAG, pFirstChar);
 
 
 
 
-                    }
+                switch (pFirstChar) {
+                    case "1":
+                        pFinal = p.substring(0, 2).trim();
+                        break;
+                    case "2":
+                        pFinal = p.substring(2, 4).trim();
+                        break;
+                    case "3":
+                        pFinal = p.substring(4, 6).trim();
+                        break;
+                    default:
+                        pFinal = p.trim();
 
 
-                    int integerP = Integer.parseInt(pFinal);
-                    int q = menu.get(i).getQuantity();
-                    int subTotal = q * integerP;
 
 
-                    total = total + subTotal;
-
-                    orderComplete.append(orderItem);
-                    orderComplete.append(" $").append(pFinal);
-                    orderComplete.append(System.getProperty("line.separator"));
                 }
+
+
+                int integerP = Integer.parseInt(pFinal);
+                int q = menu.get(i).getQuantity();
+                int subTotal = q * integerP;
+
+
+                total = total + subTotal;
+
+                orderComplete.append(orderItem);
+                orderComplete.append(System.getProperty("line.separator"));
+                orderComplete.append(" $").append(pFinal);
+                orderComplete.append(System.getProperty("line.separator"));
+            }
 
             //    Log.i(TAG, "total " + total);
 
-            }
+        }
 
-            orderComplete.append(System.getProperty("line.separator"));
+        orderComplete.append(System.getProperty("line.separator"));
 
-            orderComplete.append("total");
-            orderComplete.append(" -> $").append(total).append(" <-");
+        orderComplete.append("total");
+        orderComplete.append(" -> $").append(total).append(" <-");
 
         Log.i(TAG, orderComplete.toString());
 
 
 
-        }
+    }
 
 
 
@@ -878,7 +876,7 @@ public class ToGoRecyclerAdapter extends RecyclerView.Adapter<ToGoRecyclerAdapte
         return orderComplete.toString();
     }
 
-    public ArrayList<MenuObject>
+    public List<Menu>
     getOrderList() {
         //returns the number of elements the RecyclerView will display
         return menu;
@@ -886,8 +884,8 @@ public class ToGoRecyclerAdapter extends RecyclerView.Adapter<ToGoRecyclerAdapte
 
 
     // Insert a new item to the RecyclerView on a predefined position
-    private void insert(int position, MenuObject menuObject) {
-        menu.add(position, menuObject);
+    private void insert(int position, Menu orderMenuObject) {
+        menu.add(position, orderMenuObject);
         notifyItemInserted(position);
     }
 
@@ -953,7 +951,7 @@ public class ToGoRecyclerAdapter extends RecyclerView.Adapter<ToGoRecyclerAdapte
 
         }
 
-        public void bind(MenuObject orderMenuObject) {
+        public void bind(Menu orderMenuObject) {
 
             item.setText(orderMenuObject.getItem());
             Log.i(TAG, orderMenuObject.getItem());
@@ -1003,8 +1001,4 @@ public class ToGoRecyclerAdapter extends RecyclerView.Adapter<ToGoRecyclerAdapte
 
 
 }
-
-
-
-
 
